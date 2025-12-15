@@ -12,6 +12,7 @@ class Game {
         this.currentRoom = 0;
         this.gameState = 'exploration';
         this.dungeonLevels = this.generateDungeon();
+                this.spawnEnemies();
         this.setupControls();
         this.gameLoop();
     }
@@ -123,8 +124,10 @@ class Game {
 
     gameLoop() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = 'linear-gradient(180deg, #0f3460, #533483)';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        const gradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+        gradient.addColorStop(0, '#0f3460');
+        gradient.addColorStop(1, '#533483');
+        this.ctx.fillStyle = gradient;        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
         this.enemies.forEach(enemy => enemy.draw(this.ctx));
         this.updateUI();
